@@ -1,0 +1,8 @@
+"use client";
+import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import type { StandardWalletAdapter } from "@solana/wallet-standard";
+import { connectNightly, friendlyWalletError, sendMemo } from "@/lib/chain";
+type Value={address:string|null;connecting:boolean;error:string|null;connect:()=>Promise<void>;disconnect:()=>Promise<void>;submitMemo:(memo:string)=>Promise<string>};
+const Context=createContext<Value|null>(null);
+export function WalletProvider({children}:{children:React.ReactNode}){const[adapter,setAdapter]=useState<StandardWalletAdapter|null>(null);const[address,setAddress]=useState<string|null>(null);const[connecting,setConnecting]=useState(false);const[error,setError]=useState<string|null>(null);const connect=useCallback(async()=>{setConnecting(true);setError(null);try{const next=await connectNightly();setAdapter(next);setAddress(next.publicKey!.toBase58())}catch(e){setError(friendlyWalletError(e))}finally{setConnecting(false)}},[]);const disconnect=useCallback(async()=>{try{await adapter?.disconnect()}finally{setAdapter(null);setAddress(null);setError(null)}},[adapter]);const submitMemo=useCallback(async(memo:string)=>{if(!adapter)throw new Error("Connect Nightly before submitting.");try{return await sendMemo(adapter,memo)}catch(e){throw new Error(friendlyWalletError(e))}},[adapter]);const value=useMemo(()=>({address,connecting,error,connect,disconnect,submitMemo}),[address,connecting,error,connect,disconnect,submitMemo]);return <Context.Provider value={value}>{children}</Context.Provider>}
+export function useWallet(){const value=useContext(Context);if(!value)throw new Error("WalletProvider is missing.");return value}

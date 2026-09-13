@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Clock, Hash, Trophy } from "lucide-react";
 import { getQuest, quests } from "@/lib/quests";
+import { QuestFlow } from "@/components/quest-flow";
 
 export function generateStaticParams() { return quests.map((quest) => ({ questId: quest.id })); }
 
@@ -18,9 +19,7 @@ export default async function QuestPage({ params }: { params: Promise<{ questId:
         <section className="flow-card">
           <div className="steps"><span className="active"><Hash /> Commit</span><span><Clock /> Reveal</span><span><Trophy /> Claim</span></div>
           <p className="eyebrow">Clue</p><p className="clue">{quest.clue}</p>
-          <label htmlFor="answer">Normalized answer</label><input id="answer" placeholder="enter the word" disabled />
-          <button className="primary-button full" disabled>Connect Nightly to commit</button>
-          <p className="status-note">Real wallet signing and program calls are being connected in the chain implementation phase.</p>
+          <QuestFlow quest={quest} />
         </section>
       </div>
     </main>

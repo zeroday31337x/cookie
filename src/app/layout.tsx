@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
+import { WalletProvider } from "@/components/wallet-provider";
 import "./globals.css";
 
 const display = Cormorant_Garamond({ subsets: ["latin"], variable: "--font-display", weight: ["500", "600", "700"] });
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
-      <body><SiteHeader />{children}<footer>CookieQuest · Built for Cookie Chain</footer></body>
+      <body><WalletProvider><SiteHeader />{children}<footer>CookieQuest · Built for Cookie Chain</footer></WalletProvider></body>
     </html>
   );
 }
