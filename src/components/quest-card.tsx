@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Trophy } from "lucide-react";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import type { Quest } from "@/lib/quests";
 
 export function QuestCard({ quest }: { quest: Quest }) {
@@ -15,8 +15,8 @@ export function QuestCard({ quest }: { quest: Quest }) {
         <h3>{quest.title}</h3>
         <p>{quest.tagline}</p>
         <div className="quest-meta">
-          <span><Trophy size={15} /> {quest.rewardCook} COOK</span>
-          <span>{quest.maxWinners - quest.winners} slots left</span>
+          <span><ShieldCheck size={15} /> On-chain</span>
+          <span>3-step proof</span>
         </div>
         <Link className="card-link" href={`/quests/${quest.id}`}>Open quest <ArrowUpRight size={16} /></Link>
       </div>

@@ -16,12 +16,12 @@ export function SiteHeader() {
         <Link className="brand" href="/"><Cookie size={22} /> <span>CookieQuest</span></Link>
         <nav className={open ? "nav open" : "nav"}>
           <Link href="/quests" onClick={() => setOpen(false)}>Quests</Link>
-          <Link href="/leaderboard" onClick={() => setOpen(false)}>Leaderboard</Link>
+          <Link href="/leaderboard" onClick={() => setOpen(false)}>Activity</Link>
           <Link href="/how-it-works" onClick={() => setOpen(false)}>How it works</Link>
           <Link href="/create" onClick={() => setOpen(false)}>Create</Link>
         </nav>
         <div className="header-actions">
-          <button className="wallet-button" type="button" onClick={address ? disconnect : connect} disabled={connecting} title={error || undefined}>
+          <button className="wallet-button" type="button" onClick={address ? disconnect : connect} disabled={connecting} title={address || error || undefined}>
             <Wallet size={17} /> {connecting ? "Connecting…" : address ? `${address.slice(0,4)}…${address.slice(-4)}` : "Connect"}
           </button>
           <button className="menu-button" type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen(!open)}>

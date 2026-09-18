@@ -6,10 +6,6 @@ export type Quest = {
   hint: string;
   difficulty: "Easy" | "Medium" | "Hard";
   category: string;
-  rewardCook: number;
-  maxWinners: number;
-  winners: number;
-  crumbs: number;
   image: string;
 };
 
@@ -22,10 +18,6 @@ export const quests: Quest[] = [
     hint: "Base64 decodes to a baking leftover. Starts with c.",
     difficulty: "Easy",
     category: "Demo",
-    rewardCook: 0.5,
-    maxWinners: 100,
-    winners: 17,
-    crumbs: 1,
     image: "/quest-art/napkin.jpg",
   },
   {
@@ -36,10 +28,6 @@ export const quests: Quest[] = [
     hint: "Binary to ASCII. Four letters. You pay fees with it.",
     difficulty: "Medium",
     category: "Cipher",
-    rewardCook: 4,
-    maxWinners: 25,
-    winners: 8,
-    crumbs: 3,
     image: "/quest-art/oven.jpg",
   },
   {
@@ -50,10 +38,6 @@ export const quests: Quest[] = [
     hint: "Oscar the Grouch lives in a trash can on Sesame Street.",
     difficulty: "Hard",
     category: "Community",
-    rewardCook: 25,
-    maxWinners: 10,
-    winners: 4,
-    crumbs: 5,
     image: "/quest-art/fork.jpg",
   },
 ];

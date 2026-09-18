@@ -1,12 +1,12 @@
-import { Hash, KeyRound, Trophy, Wallet } from "lucide-react";
+import { Hash, KeyRound, ShieldCheck, Wallet } from "lucide-react";
 
 const steps = [
-  [Wallet, "Connect", "Nightly connects directly to Cookie Chain. CookieQuest never handles seed phrases or private keys."],
-  [Hash, "Commit", "The browser normalizes the answer and hashes cookiequest:v1 + quest + answer + salt using SHA-256."],
-  [KeyRound, "Reveal", "After the delay, the program verifies the answer and commitment while preventing replay."],
-  [Trophy, "Claim", "Eligible winners claim COOK from the quest vault and receive an on-chain achievement."],
+  [Wallet, "Connect", "Nightly connects to Cookie Chain. CookieQuest never receives seed phrases or private keys."],
+  [Hash, "Commit", "The browser normalizes the answer, adds a random salt, hashes the payload with SHA-256, and writes only the digest in a confirmed Cookie Chain transaction."],
+  [KeyRound, "Reveal", "A second wallet-signed transaction records the normalized answer and salt so the commitment can be independently recomputed from the public receipts."],
+  [ShieldCheck, "Record", "A final transaction records the solve proof. CookieQuest links every confirmed transaction to CookieScan for inspection."],
 ] as const;
 
 export default function HowItWorks() {
-  return <main className="section page"><p className="eyebrow">Transparent by design</p><h1>Commit. Reveal. Claim.</h1><p className="lede narrow">A small protocol that makes a daily puzzle visibly native to Cookie Chain—not a web game with a wallet button attached.</p><div className="explain-list">{steps.map(([Icon, title, body], index) => <article key={title}><span>{index + 1}</span><Icon /><div><h2>{title}</h2><p>{body}</p></div></article>)}</div></main>;
+  return <main className="section page"><p className="eyebrow">Transparent by design</p><h1>Commit. Reveal. Record.</h1><p className="lede narrow">CookieQuest uses real Cookie Chain transactions as a lightweight proof log. The bounty build uses the deployed Memo program rather than claiming a custom reward vault or automatic token payout.</p><div className="explain-list">{steps.map(([Icon, title, body], index) => <article key={title}><span>{index + 1}</span><Icon /><div><h2>{title}</h2><p>{body}</p></div></article>)}</div></main>;
 }
